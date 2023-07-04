@@ -1,16 +1,18 @@
 import nextcord
-from nextcord.ext import commands
-from nextcord.ext.commands import Context
 import yt_dlp
 import asyncio
 import os
-from nextcord import VoiceProtocol
+
+from nextcord.ext import commands
+from nextcord.ext.commands import Context
 
 intents = nextcord.Intents.all()
 intents.members = True
 
 filestodelete = []
 queuelist = {}
+currentmusic = {}
+onLoop = {}
 
 
 class Music(commands.Cog):
@@ -25,7 +27,7 @@ class Music(commands.Cog):
             queue = queuelist[guildId]
         except KeyError:
             queuelist[guildId] = []
-            queue = queuelist[guildId]
+            onLoop[guildId] = False
         await ctx.author.voice.channel.connect()
         try:
             await ctx.message.add_reaction("✅")
@@ -36,7 +38,7 @@ class Music(commands.Cog):
     async def leave(self, ctx: Context):
         try:
             await ctx.voice_client.disconnect()
-        except :
+        except:
             pass
         await ctx.message.add_reaction("✅")
 
@@ -50,6 +52,8 @@ class Music(commands.Cog):
         except KeyError:
             queuelist[guildId] = []
             queue = queuelist[guildId]
+            onLoop[guildId] = False
+
 
         await ctx.message.add_reaction("<a:loading:1004527255575334972>")
         ydl_opts = {}
@@ -92,26 +96,34 @@ class Music(commands.Cog):
         await loop.run_in_executor(None, download, url)
 
         async def check_queue():
-            global queuelist
-            try:
-                if queuelist[ctx.guild.id][0] != None:
-                    voice.play(nextcord.FFmpegPCMAudio(
-                        f"{queuelist[ctx.guild.id][0]}.mp3"), after=lambda e: check_queue())
-                    await ctx.send(f"Playing ** {queuelist[ctx.guild.id][0]} ** :musical_note:")
+
+            if onLoop[ctx.guild.id] == True:
+                    voice.play(nextcord.FFmpegPCMAudio(f"{currentmusic[ctx.guild.id]}.mp3"), after=lambda e: check_queue())
+                    await ctx.send(f"Playing **{queuelist[ctx.guild.id][0]}** :musical_note:")
+                    currentmusic[ctx.guild.id] = queuelist[ctx.guild.id][0]
+            else:
+                try:
+                    voice.play(nextcord.FFmpegPCMAudio(f"{queuelist[ctx.guild.id][0]}.mp3"), after=lambda e: check_queue())
+                    await ctx.send(f"Playing **{queuelist[ctx.guild.id][0]}** :musical_note:")
                     filestodelete.append(queuelist[ctx.guild.id][0])
+                    currentmusic[ctx.guild.id] = queuelist[ctx.guild.id][0]
                     queuelist[ctx.guild.id].pop(0)
-            except IndexError:
-                for file in filestodelete:
-                    os.remove(f"{file}.mp3")
-                filestodelete.clear()
+                except IndexError:
+                    for file in filestodelete:
+                        os.remove(f"{file}.mp3")
+                    filestodelete.clear()
+
         # Playing and Queueing Audio
         if voice.is_playing():
             queue.append(title)
             await ctx.send(f"Added ** {title} ** to the queue :musical_note:")
             await ctx.message.add_reaction("✅")
         else:
-            voice.play(nextcord.FFmpegPCMAudio(
-                f"{title}.mp3"), after=lambda e: check_queue())
+            if onLoop[ctx.guild.id] == True:               
+                voice.play(nextcord.FFmpegPCMAudio(f"{currentmusic[ctx.guild.id]}.mp3"), after=lambda e: check_queue())
+            else:
+                voice.play(nextcord.FFmpegPCMAudio(f"{title}.mp3"), after=lambda e: check_queue())
+                currentmusic[ctx.guild.id] = title
             await ctx.message.add_reaction("✅")
             await ctx.send(f"Playing ** {title} ** :musical_note:")
             filestodelete.append(title)
@@ -121,6 +133,9 @@ class Music(commands.Cog):
     async def next(self, ctx: Context):
         global queuelist
         guildId = ctx.guild.id
+        if onLoop[guildId] == True:
+            await ctx.send("Skip is disabled when looping!")
+            return
         try:
             queue = queuelist[guildId]
         except KeyError:
@@ -135,10 +150,10 @@ class Music(commands.Cog):
                 await ctx.send("There is no music in queue!")
                 return
             voice.stop()
-            voice.play(nextcord.FFmpegPCMAudio(
-                f"{queue[0]}.mp3"))
+            voice.play(nextcord.FFmpegPCMAudio(f"{queue[0]}.mp3"))
             filestodelete.append(queue[0])
             await ctx.send(f"✅ Skipped\nPlaying ** {queue[0]} ** :musical_note:")
+            currentmusic[ctx.guild.id] = queue[0]
             queue.pop(0)
             try:
                 await ctx.message.add_reaction("✅")
@@ -159,6 +174,21 @@ class Music(commands.Cog):
                 pass
         else:
             await ctx.send("Bot is not playing Audio!")
+
+    # loops current music
+    @commands.command()
+    async def loop(self, ctx:Context):
+        global queuelist, currentmusic
+        guildId = ctx.guild.id
+        try:
+            onLoop[guildId] = not onLoop[guildId]
+            try:
+                await ctx.message.add_reaction("✅")
+            except:
+                pass
+            await ctx.send(f"Loop mode {'disabled' if onLoop[guildId] == False else 'enabled'}.")
+        except KeyError:
+            await ctx.send("An error occurred. Please make sure the bot is playing music!")
 
     # resumes playing audio
     @commands.command()
@@ -181,10 +211,12 @@ class Music(commands.Cog):
         queue = queuelist[guildId]
         try:
             await ctx.message.add_reaction("✅")
-            msg = "Queue:"
+            msg = "```Queue:"
+            if onLoop[guildId] == True:
+                msg += f"\nLooping is enabled for *{currentmusic[ctx.guild.id]}*"
             for i in enumerate(queue):
-                msg += f"**{i[0]+1}. {i[1]},**"
-            await ctx.send(msg)
+                msg += f"\n**{i[0]+1}. {i[1]}**"
+            await ctx.send(f'{msg}```')
         except KeyError:
             await ctx.send("There is no music in queue!")
 

@@ -5,6 +5,7 @@ import os
 
 from nextcord.ext import commands
 from nextcord.ext.commands import Context
+from nextcord import VoiceProtocol
 
 intents = nextcord.Intents.all()
 intents.members = True

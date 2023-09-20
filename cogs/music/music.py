@@ -1,21 +1,23 @@
 import nextcord
-from nextcord.ext import commands
-from nextcord.ext.commands import Context
+from nextcord.ext import commands, tasks
+from nextcord.ext.commands import Context, Bot
 import yt_dlp
 import asyncio
 import os
 
 intents = nextcord.Intents.all()
-intents.members = True
+
+# change this to your loading emoji
+loading_emoji = "<a:loading:1004527255575334972>"
 
 filestodelete = []
 queuelist = {}
 currentmusic = {}
 onLoop = {}
 
+# TODO: make these embed
+
 # tries to add a check reaction
-
-
 async def addCheck(ctx: Context):
     try:
         await ctx.message.add_reaction("✅")
@@ -23,8 +25,6 @@ async def addCheck(ctx: Context):
         pass
 
 # tries to add a cross reaction
-
-
 async def addCross(ctx: Context):
     try:
         await ctx.message.add_reaction("❌")
@@ -32,27 +32,27 @@ async def addCross(ctx: Context):
         pass
 
 # tries to add a loading reaction
-
-
 async def addLoading(ctx: Context):
     try:
-        await ctx.message.add_reaction("<a:loading:1004527255575334972>")
+        await ctx.message.add_reaction(loading_emoji)
     except:
         pass
 
 # tries to remove the loading reaction
-
-
 async def removeLoading(ctx: Context):
     try:
-        await ctx.message.remove_reaction("<a:loading:1004527255575334972>", ctx.guild.me)
+        await ctx.message.remove_reaction(loading_emoji, ctx.guild.me)
     except:
         pass
 
 
 class Music(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: Bot):
         self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.leave_if_idle.start()
 
     # connects the bot to the voice channel
     @commands.command(aliases=["connect"])
@@ -107,7 +107,8 @@ class Music(commands.Cog):
         elif ctx.voice_client.channel != ctx.author.voice.channel:
             await ctx.voice_client.disconnect()
             voice = await ctx.author.voice.channel.connect()
-        # voice = ctx.voice_client
+        else:
+            voice = ctx.voice_client
 
         # Get the Title
         if searchword[0:4] == "http" or searchword[0:3] == "www":
@@ -359,6 +360,12 @@ class Music(commands.Cog):
     music: Displays this message.```
     """)
 
+    @tasks.loop(minutes=1)
+    async def leave_if_idle(self):
+        for guild in self.bot.guilds:
+            if guild.voice_client is not None and len(guild.voice_client.channel.members) == 1:
+                await guild.voice_client.disconnect()
 
-def setup(bot):
+
+def setup(bot: Bot):
     bot.add_cog(Music(bot))

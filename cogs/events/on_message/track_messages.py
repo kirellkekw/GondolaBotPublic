@@ -8,11 +8,8 @@ track_all_messages = False  # change value if you want to track only user messag
 
 
 class TrackMessages(commands.Cog):
-    def __init__(self, bot: Bot, track_messages: bool = False, track_all_messages: bool = False):
-        
+    def __init__(self, bot: Bot):        
         self.bot = bot
-        self.track_messages = track_messages
-        self.track_all_messages = track_all_messages
         
     @commands.Cog.listener()
     async def on_message(self, msg: Message):

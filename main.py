@@ -15,6 +15,3 @@ if __name__ == "__main__":
 
     bot.run(os.getenv("GONDOLA_TOKEN"))
 
-# TODO:
-# add embeds to music
-# add embeds to help 

@@ -1,7 +1,7 @@
 from nextcord import Activity, ActivityType
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot
-from config import bootup_channels
+from config import bootup_channels, VERSION
 
 
 
@@ -16,7 +16,7 @@ class OnReady(commands.Cog):
         await self.bot.change_presence(
             activity=Activity(type=ActivityType.listening, name=f"commands from {len(self.bot.guilds)} servers!"))
 
-        bootuptext = f"{self.bot.user.name} is online. Active server count: {len(self.bot.guilds)}"
+        bootuptext = f"{self.bot.user.name} v{VERSION} is online. Active server count: {len(self.bot.guilds)}"
 
         print(bootuptext)
 

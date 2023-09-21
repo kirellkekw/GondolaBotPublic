@@ -27,7 +27,7 @@ class AdminCmds(commands.Cog):
             except Exception as e:
                 await ctx.send(f"Error reloading {cog_name}:\n```{e}```")
         else:
-            await ctx.send("Please specify a cog to reload")        
+            await ctx.send("Please specify a cog to reload")
 
 def setup(bot: Bot):
     bot.add_cog(AdminCmds(bot))

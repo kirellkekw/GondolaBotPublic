@@ -363,8 +363,10 @@ class Music(commands.Cog):
     @tasks.loop(minutes=1)
     async def leave_if_idle(self):
         for guild in self.bot.guilds:
-            if guild.voice_client is not None and len(guild.voice_client.channel.members) == 1:
-                await guild.voice_client.disconnect()
+            if guild.voice_client != None:
+                vc:nextcord.VoiceChannel = guild.voice_client.channel
+                if len(vc.members) == 1:
+                    await guild.voice_client.disconnect()
 
 
 def setup(bot: Bot):

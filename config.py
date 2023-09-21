@@ -22,6 +22,8 @@ cogs_to_load = {
         ("on_message.react_to_msg", None),
         ("on_message.reply_to_msg", None),
         ("on_message.track_messages", None),
+        ("on_ready.change_activity", None),
+        ("on_ready.send_bootup_message", None),
     ],
     "fun": [
         ("cat", None),
@@ -37,8 +39,9 @@ cogs_to_load = {
         ("ytmp3", None),
     ],
     "utility": [
+        ("admin_commands", None),
+        ("about", None),
         ("avatar", None),
-        ("botinfo", None),
         ("clear", None),
         ("ping", None),
         ("poll", None),
@@ -52,7 +55,7 @@ cogs_to_load = {
 # channels to send bootup messages to
 bootup_channels = [1004375119541571684, 997309089115803770]
 
-# loading emoji
+# loading emoji, needed for music and ytmp3 commands
 loading_emoji = "<a:loading:1004527255575334972>"
 
 # dictionary of message react triggers and their corresponding emojis

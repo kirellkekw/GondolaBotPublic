@@ -12,6 +12,8 @@ class SendBootupMessage(commands.Cog):
 
         bootuptext = f"{NAME} v{VERSION} is online. Active server count: {len(self.bot.guilds)}"
 
+        print(bootuptext)
+
         for channel_id in bootup_channels:
             await self.bot.get_channel(channel_id).send(bootuptext)
 

@@ -1,6 +1,6 @@
 # bot version and name
 NAME = "GondolaBot"
-VERSION = "2.1.0"
+VERSION = "2.1.1"
 
 # prefix
 prefix = "--"
@@ -39,8 +39,8 @@ cogs_to_load = {
         ("ytmp3", None),
     ],
     "utility": [
-        ("admin_commands", None),
         ("about", None),
+        ("admin_commands", None),
         ("avatar", None),
         ("clear", None),
         ("ping", None),

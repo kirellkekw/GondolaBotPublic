@@ -31,7 +31,7 @@ class AdminCmds(commands.Cog):
     @commands.is_owner()
     @commands.command()
     async def list_cogs(self, ctx: Context):
-        msg = "Loaded Extensions:\n```"
+        msg = "Loaded Extensions:\n```\n"
         for extension in self.bot.extensions:
             msg += f"{extension}\n"
 

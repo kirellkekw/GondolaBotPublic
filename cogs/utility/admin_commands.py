@@ -2,7 +2,6 @@ from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
 from engine.bot import bot
 
-
 class AdminCmds(commands.Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
@@ -19,7 +18,7 @@ class AdminCmds(commands.Cog):
 
     @commands.is_owner()
     @commands.command()
-    async def reload_cogs(self, ctx: Context, *, cog_name: str = None):
+    async def reload_cog(self, ctx: Context, *, cog_name: str = None):
         if cog_name not in ["", None]:
             try:
                 self.bot.reload_extension(cog_name)
@@ -28,6 +27,15 @@ class AdminCmds(commands.Cog):
                 await ctx.send(f"Error reloading {cog_name}:\n```{e}```")
         else:
             await ctx.send("Please specify a cog to reload")
+
+    @commands.is_owner()
+    @commands.command()
+    async def list_cogs(self, ctx: Context):
+        msg = "Loaded Extensions:\n```"
+        for extension in self.bot.extensions:
+            msg += f"{extension}\n"
+
+        await ctx.send(msg+"```")
 
 def setup(bot: Bot):
     bot.add_cog(AdminCmds(bot))

@@ -1,6 +1,5 @@
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context, MissingPermissions
-from engine.bot import bot
 
 
 @commands.command(aliases=["purge", "delete"])

@@ -5,12 +5,12 @@ from nextcord.ext.commands import Bot, Context, MissingPermissions
 @commands.command(aliases=["purge", "delete"])
 async def clear(ctx: Context, amount: int = 1):
 
-    if not ctx.me.guild_permissions.manage_messages:
-        await ctx.send("I don't have permission to do that! Please give me the `Manage Messages` permission to use this command.")
+    if not ctx.channel.permissions_for(ctx.me).manage_messages:
+        await ctx.send("I don't have the `Manage Messages` permission for this channel. Please give me this permission to use this command.")
         return
     
-    elif not ctx.author.guild_permissions.manage_messages:
-        await ctx.send("You don't have permission to do that!")
+    if not ctx.channel.permissions_for(ctx.author).manage_messages:
+        await ctx.send("You need the `Manage Messages` permission for this channel to use this command.")
         return
 
     await ctx.channel.purge(limit=amount + 1)

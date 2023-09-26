@@ -10,7 +10,7 @@ async def clear(ctx: Context, amount: int = 1):
         return
     
     elif not ctx.author.guild_permissions.manage_messages:
-        await ctx.send("You don't have permission to do that!")
+        await ctx.send("You need the `Manage Messages` permission to use this command.")
         return
 
     await ctx.channel.purge(limit=amount + 1)

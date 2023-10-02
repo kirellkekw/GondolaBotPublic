@@ -69,6 +69,7 @@ msg_react_triggers = {
 
 # dictionary of message reply triggers and their corresponding replies
 msg_reply_triggers = {
+    "around the world": "https://tenor.com/view/around-the-world-daft-punk-spin-pikachu-pikachu-spin-gif-23371288",
     "pika": "https://tenor.com/view/pikachu-shocked-face-stunned-pokemon-shocked-not-shocked-omg-gif-24112152",
     "hello there": "https://tenor.com/view/hello-there-general-kenobi-star-wars-grevious-gif-17774326",
 }

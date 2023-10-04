@@ -48,6 +48,7 @@ cogs_to_load = {
         ("servercount", None),
         ("timer", None),
         ("usercount", None),
+        ("yemek", None),
     ],
 
 }

@@ -54,7 +54,9 @@ cogs_to_load = {
 }
 
 # channels to send bootup messages to
-bootup_channels = [1004375119541571684, 997309089115803770]
+bootup_channels = [
+    997309089115803770, # GondolaBot server uptime info channel
+]
 
 # loading emoji, needed for music and ytmp3 commands
 loading_emoji = "<a:loading:1004527255575334972>"

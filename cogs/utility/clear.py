@@ -19,9 +19,9 @@ async def clear(ctx: Context, amount: int = 1, member: Member = None):
             return m.author == member
         return True
     await ctx.message.delete()
-    await ctx.channel.purge(limit=amount, check=msg_criteria)
+    deleted_msgs = await ctx.channel.purge(limit=amount, check=msg_criteria)
     
-    em = Embed(description=f"Deleted {amount} messages{f' from {member.mention}' if member != None else ''}, requested by {ctx.author.mention}.")
+    em = Embed(description=f"Deleted {len(deleted_msgs)} messages{f' from {member.mention}' if member != None else ''}, requested by {ctx.author.mention}.")
     
     await ctx.send(embed=em)
 

@@ -1,9 +1,10 @@
+from nextcord import Member, Message, Embed
 from nextcord.ext import commands
-from nextcord.ext.commands import Bot, Context, MissingPermissions
+from nextcord.ext.commands import Bot, Context
 
 
 @commands.command(aliases=["purge", "delete"])
-async def clear(ctx: Context, amount: int = 1):
+async def clear(ctx: Context, amount: int = 1, member: Member = None):
 
     if not ctx.channel.permissions_for(ctx.me).manage_messages:
         await ctx.send("I don't have the `Manage Messages` permission for this channel. Please give me this permission to use this command.")
@@ -13,8 +14,16 @@ async def clear(ctx: Context, amount: int = 1):
         await ctx.send("You need the `Manage Messages` permission for this channel to use this command.")
         return
 
-    await ctx.channel.purge(limit=amount + 1)
-    await ctx.send(f"Deleted {amount} messages by request of {ctx.author.mention}", delete_after=5)
+    def msg_criteria(m:Message):
+        if member != None:
+            return m.author == member
+        return True
+    await ctx.message.delete()
+    await ctx.channel.purge(limit=amount, check=msg_criteria)
+    
+    em = Embed(description=f"Deleted {amount} messages{f' from {member.mention}' if member != None else ''}, requested by {ctx.author.mention}.")
+    
+    await ctx.send(embed=em)
 
 
 def setup(bot: Bot):

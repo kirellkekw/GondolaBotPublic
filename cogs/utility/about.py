@@ -20,7 +20,7 @@ async def about(ctx: Context):
     for dev in developers:
         msg += f"<@{dev}>\n"
 
-    em.add_field(name="Developers", value=f"{msg}If you want to be included in this list, you can contribute to the bot from GitHub.")
+    em.add_field(name="Developers", value=f"{msg}If you want to be included in this list, you can contribute to the bot from GitHub.", inline=False)
     em.set_footer(text="Powered by memes, quality music and good friends.")
     try:
         await ctx.send(embed=em)

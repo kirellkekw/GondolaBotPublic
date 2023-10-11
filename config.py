@@ -16,6 +16,12 @@ cogs_to_load = {
 }
 """
 
+# list of bot developers, add your id here to be listed in the about command
+developers = [
+    343517933256835072 # beypazarilazim
+]
+
+
 cogs_to_load = {
     "events": [
         ("on_message.color_picker", None),

@@ -81,4 +81,5 @@ msg_reply_triggers = {
     "around the world": "https://tenor.com/view/around-the-world-daft-punk-spin-pikachu-pikachu-spin-gif-23371288",
     "pika": "https://tenor.com/view/pikachu-shocked-face-stunned-pokemon-shocked-not-shocked-omg-gif-24112152",
     "hello there": "https://tenor.com/view/hello-there-general-kenobi-star-wars-grevious-gif-17774326",
+    "jerry": "https://tenor.com/view/tom-and-jerry-what-insomnia-no-sleep-gif-13337078",
 }

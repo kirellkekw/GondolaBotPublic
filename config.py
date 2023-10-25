@@ -1,6 +1,6 @@
 # bot version and name
 NAME = "GondolaBot"
-VERSION = "2.1.1"
+VERSION = "2.2.0"
 
 # prefix
 prefix = "--"
@@ -38,6 +38,7 @@ cogs_to_load = {
         ("dog", None),
         ("duck", None),
         ("gondola", None),
+        ("urban", None),
         ("xkcd", None),
     ],
     "music": [

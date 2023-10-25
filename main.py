@@ -13,4 +13,3 @@ if __name__ == "__main__":
     print("All cogs loaded. Starting bot...")
 
     bot.run(os.getenv("GONDOLA_TOKEN"))
-

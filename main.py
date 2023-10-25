@@ -1,8 +1,7 @@
-from engine.bot import bot
 import os
 from dotenv import load_dotenv
-from engine.load_cogs import load_cogs
 from engine.bot import bot
+from engine.load_cogs import load_cogs
 
 
 if __name__ == "__main__":

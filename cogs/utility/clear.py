@@ -1,4 +1,4 @@
-from nextcord import Member, Message, Embed
+from nextcord import Member, Embed
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
 
@@ -21,6 +21,12 @@ async def clear(ctx: Context, amount: int = 1, member: Member = None):
     
     await ctx.send(embed=em)
 
+@commands.is_owner()
+@commands.command()
+async def hiddenclear(ctx: Context, amount: int = 1):
+    msglist = await ctx.channel.history(limit=amount + 1)
+    await ctx.channel.delete_messages(msglist)
 
 def setup(bot: Bot):
     bot.add_command(clear)
+    bot.add_command(hiddenclear)

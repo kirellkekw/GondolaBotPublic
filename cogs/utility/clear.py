@@ -14,20 +14,10 @@ async def clear(ctx: Context, amount: int = 1, member: Member = None):
         await ctx.send("You need the `Manage Messages` permission for this channel to use this command.")
         return
 
-    def msg_criteria(m:Message):
-        nonlocal amount
-        if amount == 0:
-            return False
-        if member != None:
-            amount -= 1
-            return m.author == member
-        amount -= 1
-        return True
-    
     await ctx.message.delete()
-    deleted_msgs = await ctx.channel.purge(limit=500, check=msg_criteria)
+    deleted_msgs = await ctx.channel.purge(limit=500)
 
-    em = Embed(description=f"Deleted {len(deleted_msgs)} messages{f' from {member.mention}' if member != None else ''}, requested by {ctx.author.mention}.")
+    em = Embed(description=f"Deleted {len(deleted_msgs)} messages, requested by {ctx.author.mention}.")
     
     await ctx.send(embed=em)
 

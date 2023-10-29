@@ -1,7 +1,7 @@
 from nextcord import Embed, Member
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
-from config import prefix
+from config import PREFIX
 
 
 """
@@ -41,7 +41,7 @@ class Avatar(commands.Cog):
 
 name = "avatar"
 description = "Shows the avatar of requested user."
-usage = f"{prefix}avatar @user"
+usage = f"{PREFIX}avatar @user"
 
 
 @commands.command(aliases=["av", "pfp"], description=description, usage=usage, dm_permission=False)

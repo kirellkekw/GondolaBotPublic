@@ -1,14 +1,14 @@
 from nextcord import Embed
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
-from config import prefix
+from config import PREFIX
 from engine.bot import bot
 
 
 
 name = "servercount"
 description = "Shows the number of servers the bot is in."
-usage = f"{prefix}servercount"
+usage = f"{PREFIX}servercount"
 
 
 

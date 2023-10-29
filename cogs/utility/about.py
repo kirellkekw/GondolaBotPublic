@@ -1,7 +1,7 @@
 from nextcord import Embed
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
-from config import VERSION, prefix, developers
+from config import VERSION, PREFIX, DEVELOPERS
 from engine.bot import bot
 
 
@@ -9,7 +9,7 @@ from engine.bot import bot
 @commands.command(name="about", aliases=["info"])
 async def about(ctx: Context):
     em = Embed(title=f"{bot.user.name}", color=bot.user.color)
-    em.add_field(name="Prefix", value=f"`{prefix}`")
+    em.add_field(name="Prefix", value=f"`{PREFIX}`")
     em.add_field(name="Owner", value=f"<@{bot.owner_id}>")
     em.add_field(name="Source Code",
                  value="[GitHub](https://github.com/kirellkekw/GondolaBotPublic)")
@@ -17,7 +17,7 @@ async def about(ctx: Context):
     em.add_field(name="Users", value=f"{len(bot.users)}")
 
     msg = ""
-    for dev in developers:
+    for dev in DEVELOPERS:
         msg += f"<@{dev}>\n"
 
     em.add_field(name="Developers", value=f"{msg}If you want to be included in this list, you can contribute to the bot from GitHub.", inline=False)

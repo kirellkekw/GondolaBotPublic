@@ -1,6 +1,7 @@
 from nextcord.ext.commands import Bot
 from nextcord import Intents
-from config import prefix
+from config import PREFIX, BOT_OWNER_ID
 
-bot = Bot(command_prefix=prefix, intents=Intents.all())
-bot.owner_id = 343517933256835072
+bot = Bot(command_prefix=PREFIX, intents=Intents.all())
+
+bot.owner_id = BOT_OWNER_ID

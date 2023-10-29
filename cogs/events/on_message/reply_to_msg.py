@@ -1,7 +1,7 @@
 from nextcord import Message
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot
-from config import msg_reply_triggers
+from config import MSG_REPLY_TRIGGERS
 
 
 class ReplyToMsg(commands.Cog):
@@ -13,10 +13,10 @@ class ReplyToMsg(commands.Cog):
         if message.author.bot:
             return
 
-        for trigger in msg_reply_triggers:
+        for trigger in MSG_REPLY_TRIGGERS:
             if trigger == message.content.lower():
                 try:
-                    await message.channel.send(msg_reply_triggers[trigger])
+                    await message.channel.send(MSG_REPLY_TRIGGERS[trigger])
                 except Exception as e:
                     pass
 

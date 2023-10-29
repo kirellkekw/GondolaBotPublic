@@ -1,6 +1,6 @@
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot
-from config import bootup_channels, VERSION, NAME
+from config import BOOTUP_CHANNELS, VERSION, NAME, TESTMODE
 
 
 class SendBootupMessage(commands.Cog):
@@ -14,7 +14,11 @@ class SendBootupMessage(commands.Cog):
 
         print(bootuptext)
 
-        for channel_id in bootup_channels:
+        # don't send bootup message if test bot is active
+        if TESTMODE == True:
+            return
+        
+        for channel_id in BOOTUP_CHANNELS:
             await self.bot.get_channel(channel_id).send(bootuptext)
 
 def setup(bot: Bot):

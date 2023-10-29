@@ -2,20 +2,20 @@ import os
 from nextcord import Embed, File
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
-from config import prefix, loading_emoji
+from config import PREFIX, LOADING_EMOJI
 import yt_dlp
 import asyncio
 
 
 name = "ytmp3"
 description = "Convert a YouTube video(or any other videos) to a mp3 file."
-usage = f"{prefix}ytmp3 Elephant - Tame Impala\n{prefix}ytmp3 https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+usage = f"{PREFIX}ytmp3 Elephant - Tame Impala\n{PREFIX}ytmp3 https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
 
 @commands.command(aliases=["mp3", "yt2mp3"])
 async def ytmp3(ctx: Context, *, search_query):
     ydl_opts = {}
-    await ctx.message.add_reaction(loading_emoji)
+    await ctx.message.add_reaction(LOADING_EMOJI)
     em = Embed(description="Download job running...", color=ctx.author.color)
     em.add_field(name="Search Query", value=search_query)
     em.set_footer(text=f"Requested by {ctx.author.name}#{ctx.author.discriminator}", icon_url=ctx.author.avatar._url)
@@ -70,12 +70,12 @@ async def ytmp3(ctx: Context, *, search_query):
         try:
             await my_msg.edit(file=File(fp, f'{title}.mp3'),embed=None)
             # await ctx.message.reply(file=File(fp, f'{title}.mp3'))
-            await ctx.message.remove_reaction(loading_emoji, member=ctx.guild.me)
+            await ctx.message.remove_reaction(LOADING_EMOJI, member=ctx.guild.me)
             await ctx.message.add_reaction("✅")
             # await my_msg.delete()
         except Exception:
             await ctx.message.reply("An error occurred, please give me file permissions or try this command in a different channel.")
-            await ctx.message.remove_reaction(loading_emoji, member=ctx.guild.me)
+            await ctx.message.remove_reaction(LOADING_EMOJI, member=ctx.guild.me)
             await ctx.message.add_reaction("❌")
     
     

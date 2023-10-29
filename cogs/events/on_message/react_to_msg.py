@@ -1,7 +1,7 @@
 from nextcord import Message
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot
-from config import msg_react_triggers
+from config import MSG_REACT_TRIGGERS
 
 
 class ReactToMsg(commands.Cog):
@@ -13,10 +13,10 @@ class ReactToMsg(commands.Cog):
         if message.author.bot:
             return
 
-        for trigger in msg_react_triggers:
+        for trigger in MSG_REACT_TRIGGERS:
             if trigger == message.content.lower():
                 try:
-                    await message.add_reaction(msg_react_triggers[trigger])
+                    await message.add_reaction(MSG_REACT_TRIGGERS[trigger])
                 except Exception as e:
                     pass
 

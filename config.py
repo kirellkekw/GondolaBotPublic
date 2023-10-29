@@ -1,28 +1,29 @@
-# bot version and name
+# in test mode, token source changes to TESTBOT_TOKEN and no launch message is sent. 
+# makes it easier to develop and debug the bot without changing production code.
+TESTMODE = False
+
+# don't forget to change these values in your own instance of bot
 NAME = "GondolaBot"
-VERSION = "2.2.0"
+VERSION = "2.3.0"
+BOT_OWNER_ID = 343517933256835072
+PREFIX = "--"
 
-# prefix
-prefix = "--"
-
-
-"""
-format:
-cogs_to_load = {
-    "category1": [ # loads commmand1 and command2
-        ("command1", None),
-        ("command2", None),
-    ],
-}
-"""
 
 # list of bot developers, add your id here to be listed in the about command
-developers = [
+DEVELOPERS = [
     343517933256835072 # beypazarilazim
 ]
 
 
-cogs_to_load = {
+# format:
+# cogs_to_load = {
+#     "category1": [ # loads commmand1 and command2
+#         ("command1", None),
+#         ("command2", None),
+#     ],
+# }
+
+COGS_TO_LOAD = {
     "events": [
         ("on_message.color_picker", None),
         ("on_message.react_to_msg", None),
@@ -57,19 +58,18 @@ cogs_to_load = {
         ("usercount", None),
         ("yemek", None),
     ],
-
 }
 
 # channels to send bootup messages to
-bootup_channels = [
+BOOTUP_CHANNELS = [
     997309089115803770, # GondolaBot server uptime info channel
 ]
 
 # loading emoji, needed for music and ytmp3 commands
-loading_emoji = "<a:loading:1004527255575334972>"
+LOADING_EMOJI = "<a:loading:1004527255575334972>"
 
 # dictionary of message react triggers and their corresponding emojis
-msg_react_triggers = {
+MSG_REACT_TRIGGERS = {
     "heh": "<:emoji4:702822916236247056>",
     "nix": "<:nix:1004700334515568743>",
     "wait": "<:wait:702823028177764874>",
@@ -78,7 +78,7 @@ msg_react_triggers = {
 }
 
 # dictionary of message reply triggers and their corresponding replies
-msg_reply_triggers = {
+MSG_REPLY_TRIGGERS = {
     "around the world": "https://tenor.com/view/around-the-world-daft-punk-spin-pikachu-pikachu-spin-gif-23371288",
     "pika": "https://tenor.com/view/pikachu-shocked-face-stunned-pokemon-shocked-not-shocked-omg-gif-24112152",
     "hello there": "https://tenor.com/view/hello-there-general-kenobi-star-wars-grevious-gif-17774326",

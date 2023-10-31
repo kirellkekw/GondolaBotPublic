@@ -14,7 +14,7 @@ Please make sure you have Git and Python installed in your system. For music pla
 ```shell
 git clone https://github.com/kirellkekw/GondolaBotPublic
 
-cd gondolabotpublic
+cd GondolaBotPublic
 
 pip install -r requirements.txt
 ```

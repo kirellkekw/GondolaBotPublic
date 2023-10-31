@@ -1,13 +1,13 @@
 # GondolaBot
 GondolaBot is a Discord bot written in pure Python with external packages provided from PYPI. The bot's code is made fully modular and controllable from config.py file.
 
-# To try the bot:
+## To try the bot:
 https://discord.gg/hr2P8mS8Pd
 
-# To add the bot to your server:
+## To add the bot to your server:
 https://discord.com/oauth2/authorize?client_id=994282865254731826&permissions=137509596225&scope=bot
 
-# If you wish to run your own instance of bot:
+## If you wish to run your own instance of bot:
 
 Please make sure you have Git and Python installed in your system. For music playing commands, you will need to install FFMpeg too.
 

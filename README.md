@@ -34,7 +34,7 @@ MAIN_TOKEN is always needed, but TEST_TOKEN is optional.
 After providing an .env file, you can run the bot by using
 
 ```py
-python -m main.py
+python -m main
 ```
 
 in the console.

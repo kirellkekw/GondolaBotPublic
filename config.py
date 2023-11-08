@@ -1,6 +1,6 @@
 # in test mode, token source changes to TESTBOT_TOKEN and no launch message is sent. 
 # makes it easier to develop and debug the bot without changing production code.
-TESTMODE = True
+TESTMODE = False
 
 # don't forget to change these values in your own instance of bot
 NAME = "GondolaBot"

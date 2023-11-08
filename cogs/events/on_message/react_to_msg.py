@@ -1,7 +1,7 @@
 from nextcord import Message
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot
-from config import MSG_REACT_TRIGGERS
+from event_config import MSG_REACT_TRIGGERS
 
 
 class ReactToMsg(commands.Cog):

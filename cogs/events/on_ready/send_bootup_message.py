@@ -1,6 +1,7 @@
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot
-from config import BOOTUP_CHANNELS, VERSION, NAME, TESTMODE
+from event_config import BOOTUP_CHANNELS
+from config import NAME, VERSION, TESTMODE
 
 
 class SendBootupMessage(commands.Cog):

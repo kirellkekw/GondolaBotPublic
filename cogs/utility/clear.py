@@ -1,4 +1,4 @@
-from nextcord import Member, Embed
+from nextcord import Embed
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
 

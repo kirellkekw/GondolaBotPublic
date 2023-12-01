@@ -1,8 +1,9 @@
 from nextcord import Embed
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
-from config import VERSION, PREFIX, DEVELOPERS
+from config import PREFIX
 from engine.bot import bot
+from developers import CONTRIBUTORS
 
 
 
@@ -17,7 +18,7 @@ async def about(ctx: Context):
     em.add_field(name="Users", value=f"{len(bot.users)}")
 
     msg = ""
-    for dev in DEVELOPERS:
+    for dev in CONTRIBUTORS:
         msg += f"<@{dev}>\n"
 
     em.add_field(name="Developers", value=f"{msg}If you want to be included in this list, you can contribute to the bot from GitHub.", inline=False)
@@ -25,7 +26,7 @@ async def about(ctx: Context):
     try:
         await ctx.send(embed=em)
     except:
-        await ctx.send("I need the `Embed Links` permission to send this")
+        await ctx.send("I need the `Embed Links` permission to send this.")
 
 
 def setup(bot: Bot):

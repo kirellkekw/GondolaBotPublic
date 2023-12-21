@@ -42,10 +42,14 @@ async def roll(ctx: Context, input: str = "1d20"):
             await ctx.send("You can't roll more than 20 times.", delete_after=10)
             await mymsg.delete()
             return
+        elif amount < 1:
+            amount = 1
         if sides > 100:
             await ctx.send("You can't roll a dice with more than 100 sides.", delete_after=10)
             await mymsg.delete()
             return
+        elif sides < 2:
+            sides = 2
         
         msg = "Results:\n`  "
         sum = 0

@@ -1,4 +1,3 @@
-from nextcord import Embed
 from nextcord.ext import commands
 from nextcord.ext.commands import Context, Bot
 import random

@@ -36,6 +36,7 @@ COGS_TO_LOAD = {
         ("dog", None),
         ("duck", None),
         ("gondola", None),
+        ("roll", None),
         ("urban", None),
         ("xkcd", None),
     ],

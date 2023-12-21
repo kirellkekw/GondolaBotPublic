@@ -131,7 +131,7 @@ class Music(commands.Cog):
             "outtmpl": f"{title}",
             "postprocessors":
             [{"key": "FFmpegExtractAudio", "preferredcodec": "mp3",
-                "preferredquality": "192"}],
+                "preferredquality": "128"}],
         }
 
         def download(url):

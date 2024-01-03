@@ -50,7 +50,7 @@ async def roll(ctx: Context, input: str = "1d20"):
             return
         elif sides < 2:
             sides = 2
-        
+
         msg = "Results:\n`  "
         sum = 0
         for _ in range(amount):

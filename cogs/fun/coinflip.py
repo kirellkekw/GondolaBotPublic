@@ -7,7 +7,7 @@ import random
 async def coinflip(ctx: Context):
     choice = ["Heads", "Tails"]
     side = random.randint(1, 6000)
-    if side is 1033:
+    if side == 1033:
         await ctx.channel.send("Coin landed on it's side!")
     else:
         await ctx.channel.send(f"The coin landed on {random.choice(choice)}.")

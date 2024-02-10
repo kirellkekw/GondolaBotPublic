@@ -119,7 +119,7 @@ class Music(commands.Cog):
             voice = ctx.voice_client
 
         # Get the Title
-        if searchword[0:4] is "http" or searchword[0:3] is "www":
+        if searchword[0:4] == "http" or searchword[0:3] == "www":
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(searchword, download=False)
                 title = info["title"]
@@ -247,7 +247,7 @@ class Music(commands.Cog):
                     filestodelete.clear()
 
         if voice.is_playing() is True:
-            if len(queue) is 0:
+            if len(queue) == 0:
                 await ctx.send("There is no music in queue to skip!")
                 await addCross(ctx)
                 return
@@ -373,7 +373,7 @@ class Music(commands.Cog):
         for guild in self.bot.guilds:
             if guild.voice_client != None:
                 vc: nextcord.VoiceChannel = guild.voice_client.channel
-                if len(vc.members) is 1:
+                if len(vc.members) == 1:
                     await guild.voice_client.disconnect()
 
 

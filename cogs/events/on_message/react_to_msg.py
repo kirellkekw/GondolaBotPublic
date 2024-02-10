@@ -14,7 +14,7 @@ class ReactToMsg(commands.Cog):
             return
 
         for trigger in MSG_REACT_TRIGGERS:
-            if trigger is message.content.lower():
+            if trigger == message.content.lower():
                 try:
                     await message.add_reaction(MSG_REACT_TRIGGERS[trigger])
                 except Exception:

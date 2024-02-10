@@ -24,7 +24,7 @@ async def ytmp3(ctx: Context, *, search_query):
     my_msg = await ctx.message.reply(embed=em)
 
     # Get the Title
-    if search_query[0:4] is "http" or search_query[0:3] is "www":
+    if search_query[0:4] == "http" or search_query[0:3] == "www":
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(search_query, download=False)
             title = info["title"]

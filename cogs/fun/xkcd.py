@@ -14,7 +14,7 @@ async def xkcd(ctx: Context, *, num: int = None):
     if num is None:
         res = r.get(f"https://xkcd.com/{randnum}/info.0.json")
 
-    elif num is 0:
+    elif num == 0:
         res = r.get(f"https://xkcd.com/info.0.json")
 
     else:

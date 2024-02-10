@@ -14,7 +14,7 @@ class ReplyToMsg(commands.Cog):
             return
 
         for trigger in MSG_REPLY_TRIGGERS:
-            if trigger is message.content.lower():
+            if trigger == message.content.lower():
                 try:
                     await message.channel.send(MSG_REPLY_TRIGGERS[trigger])
                 except Exception:

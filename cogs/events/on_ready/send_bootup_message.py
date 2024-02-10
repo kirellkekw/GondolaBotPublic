@@ -16,11 +16,12 @@ class SendBootupMessage(commands.Cog):
         print(bootuptext)
 
         # don't send bootup message if test bot is active
-        if TESTMODE == True:
+        if TESTMODE is True:
             return
-        
+
         for channel_id in BOOTUP_CHANNELS:
             await self.bot.get_channel(channel_id).send(bootuptext)
+
 
 def setup(bot: Bot):
     bot.add_cog(SendBootupMessage(bot))

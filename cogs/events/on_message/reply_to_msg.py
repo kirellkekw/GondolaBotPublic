@@ -12,12 +12,12 @@ class ReplyToMsg(commands.Cog):
     async def on_message(self, message: Message):
         if message.author.bot:
             return
-        
+
         for trigger in MSG_REPLY_TRIGGERS:
-            if trigger == message.content.lower():
+            if trigger is message.content.lower():
                 try:
                     await message.channel.send(MSG_REPLY_TRIGGERS[trigger])
-                except Exception as e:
+                except Exception:
                     pass
 
 

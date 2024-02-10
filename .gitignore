@@ -3,5 +3,5 @@ __pycache__
 template.py
 project
 .vscode
-test.py
+test*
 other

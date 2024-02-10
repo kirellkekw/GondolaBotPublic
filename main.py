@@ -9,7 +9,7 @@ TOKEN = "TEST_TOKEN" if TESTMODE else "MAIN_TOKEN"
 if __name__ == "__main__":
 
     load_dotenv()
-    
+
     load_cogs(bot)
 
     print("All cogs loaded. Starting bot...")

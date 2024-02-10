@@ -18,6 +18,8 @@ onLoop = {}
 # TODO: make these embed
 
 # tries to add a check reaction
+
+
 async def addCheck(ctx: Context):
     try:
         await ctx.message.add_reaction("✅")
@@ -25,6 +27,8 @@ async def addCheck(ctx: Context):
         pass
 
 # tries to add a cross reaction
+
+
 async def addCross(ctx: Context):
     try:
         await ctx.message.add_reaction("❌")
@@ -32,6 +36,8 @@ async def addCross(ctx: Context):
         pass
 
 # tries to add a loading reaction
+
+
 async def addLoading(ctx: Context):
     try:
         await ctx.message.add_reaction(loading_emoji)
@@ -39,6 +45,8 @@ async def addLoading(ctx: Context):
         pass
 
 # tries to remove the loading reaction
+
+
 async def removeLoading(ctx: Context):
     try:
         await ctx.message.remove_reaction(loading_emoji, ctx.guild.me)
@@ -65,7 +73,7 @@ class Music(commands.Cog):
             queuelist[guildId] = []
             onLoop[guildId] = False  # set the loop default to false
 
-        if ctx.voice_client == None:
+        if ctx.voice_client is None:
             await ctx.author.voice.channel.connect()  # connect to the voice channel
             await addCheck(ctx)
         else:
@@ -102,7 +110,7 @@ class Music(commands.Cog):
         # Downloading Sequence
 
         ydl_opts = {}
-        if ctx.voice_client == None:
+        if ctx.voice_client is None:
             voice = await ctx.author.voice.channel.connect()
         elif ctx.voice_client.channel != ctx.author.voice.channel:
             await ctx.voice_client.disconnect()
@@ -111,7 +119,7 @@ class Music(commands.Cog):
             voice = ctx.voice_client
 
         # Get the Title
-        if searchword[0:4] == "http" or searchword[0:3] == "www":
+        if searchword[0:4] is "http" or searchword[0:3] is "www":
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(searchword, download=False)
                 title = info["title"]
@@ -143,7 +151,7 @@ class Music(commands.Cog):
 
         async def check_queue():
 
-            if onLoop[guildId] == True:  # if looping is enabled
+            if onLoop[guildId] is True:  # if looping is enabled
                 # play the current music again
                 voice.play(nextcord.FFmpegPCMAudio(
                     f"{currentmusic[guildId]}.mp3"), after=lambda e: check_queue())
@@ -174,7 +182,7 @@ class Music(commands.Cog):
             await removeLoading(ctx)
             await addCheck(ctx)
         else:
-            if onLoop[guildId] == True:
+            if onLoop[guildId] is True:
                 voice.play(nextcord.FFmpegPCMAudio(
                     f"{currentmusic[guildId]}.mp3"), after=lambda e: check_queue())
                 await ctx.send(f"Playing **{currentmusic[guildId]}** :musical_note:")
@@ -205,7 +213,7 @@ class Music(commands.Cog):
             await addCross(ctx)
             return
 
-        if ctx.voice_client == None:
+        if ctx.voice_client is None:
             await ctx.send("Bot is not in a Voice Channel!")
             await addCross(ctx)
             return
@@ -214,7 +222,7 @@ class Music(commands.Cog):
 
         async def check_queue():
 
-            if onLoop[guildId] == True:  # if looping is enabled
+            if onLoop[guildId] is True:  # if looping is enabled
                 # play the current music again
                 voice.play(nextcord.FFmpegPCMAudio(
                     f"{currentmusic[guildId]}.mp3"), after=lambda e: check_queue())
@@ -238,8 +246,8 @@ class Music(commands.Cog):
                         os.remove(f"{file}.mp3")
                     filestodelete.clear()
 
-        if voice.is_playing() == True:
-            if len(queue) == 0:
+        if voice.is_playing() is True:
+            if len(queue) is 0:
                 await ctx.send("There is no music in queue to skip!")
                 await addCross(ctx)
                 return
@@ -259,7 +267,7 @@ class Music(commands.Cog):
     @commands.command(aliases=["stop"])
     async def pause(self, ctx: Context):
         voice = ctx.voice_client
-        if voice.is_playing() == True:
+        if voice.is_playing() is True:
             voice.pause()
             await ctx.send("Playing paused.")
             await addCheck(ctx)
@@ -279,7 +287,7 @@ class Music(commands.Cog):
         try:
             onLoop[guildId] = not onLoop[guildId]
             await addCheck(ctx)
-            await ctx.send(f"Loop mode {'disabled' if onLoop[guildId] == False else 'enabled'}.")
+            await ctx.send(f"Loop mode {'disabled' if onLoop[guildId] is False else 'enabled'}.")
         except KeyError:
             await ctx.send("Bot is not playing music!")
             await addCross(ctx)
@@ -289,7 +297,7 @@ class Music(commands.Cog):
     @commands.command()
     async def resume(self, ctx: Context):
         voice = ctx.voice_client
-        if voice.is_playing() == True:
+        if voice.is_playing() is True:
             await ctx.send("Bot is already playing!")
             await addCross(ctx)
         else:
@@ -306,7 +314,7 @@ class Music(commands.Cog):
         try:
             await addCheck(ctx)
             msg = "```Queue:"
-            if onLoop[guildId] == True:
+            if onLoop[guildId] is True:
                 msg += f"\nLooping is enabled for *{currentmusic[guildId]}*"
             for i in enumerate(queue):
                 msg += f"\n{i[0]+1}- {i[1]}"
@@ -364,8 +372,8 @@ class Music(commands.Cog):
     async def leave_if_idle(self):
         for guild in self.bot.guilds:
             if guild.voice_client != None:
-                vc:nextcord.VoiceChannel = guild.voice_client.channel
-                if len(vc.members) == 1:
+                vc: nextcord.VoiceChannel = guild.voice_client.channel
+                if len(vc.members) is 1:
                     await guild.voice_client.disconnect()
 
 

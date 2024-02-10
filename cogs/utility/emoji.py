@@ -3,19 +3,20 @@ from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
 import requests as r
 
+
 @commands.command()
-async def emoji(ctx: Context, emoji: str):
+async def emoji(ctx: Context, emoji_to_check: str):
 
-    emojiName = emoji.split(":")[1]
-    emojiId = emoji.split(":")[2].replace(">", "")
+    emoji_name = emoji_to_check.split(":")[1]
+    emoji_id = emoji_to_check.split(":")[2].replace(">", "")
 
-    if emoji.startswith("<a:"):
-        emojiLink = f"https://cdn.discordapp.com/emojis/{emojiId}.gif?size=240&quality=lossless"
+    if emoji_to_check.startswith("<a:"):
+        emoji_link = f"https://cdn.discordapp.com/emojis/{emoji_id}.gif?size=240&quality=lossless"
     else:
-        emojiLink = f"https://cdn.discordapp.com/emojis/{emojiId}.png?size=240quality=lossless"
+        emoji_link = f"https://cdn.discordapp.com/emojis/{emoji_id}.png?size=240quality=lossless"
 
-    em = Embed(title=f"Emoji: {emojiName}", color=ctx.author.color)
-    em.set_image(emojiLink)
+    em = Embed(title=f"Emoji: {emoji_name}", color=ctx.author.color)
+    em.set_image(emoji_link)
     try:
         await ctx.send(embed=em)
     except:
@@ -23,7 +24,7 @@ async def emoji(ctx: Context, emoji: str):
 
 
 @commands.command()
-async def addemoji(ctx: Context, emoji: str, name: str):
+async def addemoji(ctx: Context, emoji_to_add: str, name: str):
 
     if not ctx.author.guild_permissions.manage_emojis:
         await ctx.send("You need the `manage_emojis` permission to do this.")
@@ -32,27 +33,27 @@ async def addemoji(ctx: Context, emoji: str, name: str):
     if not ctx.me.guild_permissions.manage_emojis:
         await ctx.send("I need the `manage_emojis` permission to do this.")
         return
-    
+
     if len(name) > 32 or len(name) < 2:
         await ctx.send("Emoji name has to be between 2 and 32 characters long.")
         return
 
-    emojiId = emoji.split(":")[2].replace(">", "")
+    emoji_id = emoji_to_add.split(":")[2].replace(">", "")
 
-    isAnimated = emoji.startswith("<a:")
-    if isAnimated:
-        emojiLink = f"https://cdn.discordapp.com/emojis/{emojiId}.gif?size=240&quality=lossless"
+    is_animated = emoji_to_add.startswith("<a:")
+    if is_animated:
+        emoji_link = f"https://cdn.discordapp.com/emojis/{emoji_id}.gif?size=240&quality=lossless"
     else:
-        emojiLink = f"https://cdn.discordapp.com/emojis/{emojiId}.png?size=240quality=lossless"
-    
-    res = r.get(emojiLink)
+        emoji_link = f"https://cdn.discordapp.com/emojis/{emoji_id}.png?size=240quality=lossless"
+
+    res = r.get(emoji_link, timeout=10)
     if res.status_code != 200:
         await ctx.send("Invalid emoji.")
         return
-    
-    emoji = await ctx.guild.create_custom_emoji(name=name, image=bytes(res.content))
 
-    await ctx.send(f"Emoji {emoji} added as {name}.")
+    emoji_to_add = await ctx.guild.create_custom_emoji(name=name, image=bytes(res.content))
+
+    await ctx.send(f"Emoji {emoji_to_add} added as {name}.")
     return
 
 

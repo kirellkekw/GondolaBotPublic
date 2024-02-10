@@ -1,18 +1,20 @@
+import re
+import datetime
+
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
-
 import requests
-import re
 import jsonpickle
-import datetime
+
 
 @commands.command(hidden=True)
 async def yemek(ctx: Context):
 
-    r = requests.get(url="https://yemekhane.cu.edu.tr/yemeklistejson.asp")
+    r = requests.get(
+        url="https://yemekhane.cu.edu.tr/yemeklistejson.asp", timeout=10)
     r.encoding = "ISO-8859-9"
     r = re.sub(r'<meta .*>', '', r.text)
-    yemek = jsonpickle.decode(r)
+    parsed_data = jsonpickle.decode(r)
 
     today = datetime.date.today().strftime("%d.%m.%Y")
     tomorrow = (datetime.date.today() +
@@ -50,8 +52,8 @@ async def yemek(ctx: Context):
         tomorrowname = (datetime.date.today() +
                         datetime.timedelta(days=3)).strftime("%A")
 
-    day1 = yemek[today]
-    day2 = yemek[tomorrow]
+    day1 = parsed_data[today]
+    day2 = parsed_data[tomorrow]
 
     msg = "> ```\n> "
     msg += todayname
@@ -83,6 +85,7 @@ async def yemek(ctx: Context):
     print(msg)
 
     await ctx.send(msg)
+
 
 def setup(bot: Bot):
     bot.add_command(yemek)

@@ -18,12 +18,13 @@ async def ytmp3(ctx: Context, *, search_query):
     await ctx.message.add_reaction(LOADING_EMOJI)
     em = Embed(description="Download job running...", color=ctx.author.color)
     em.add_field(name="Search Query", value=search_query)
-    em.set_footer(text=f"Requested by {ctx.author.name}#{ctx.author.discriminator}", icon_url=ctx.author.avatar._url)
+    em.set_footer(
+        text=f"Requested by {ctx.author.name}#{ctx.author.discriminator}", icon_url=ctx.author.avatar._url)
 
     my_msg = await ctx.message.reply(embed=em)
 
     # Get the Title
-    if search_query[0:4] == "http" or search_query[0:3] == "www":
+    if search_query[0:4] is "http" or search_query[0:3] is "www":
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(search_query, download=False)
             title = info["title"]
@@ -68,7 +69,7 @@ async def ytmp3(ctx: Context, *, search_query):
 
     with open(f'{title}{ctx.author.id}q.mp3', 'rb') as fp:
         try:
-            await my_msg.edit(file=File(fp, f'{title}.mp3'),embed=None)
+            await my_msg.edit(file=File(fp, f'{title}.mp3'), embed=None)
             # await ctx.message.reply(file=File(fp, f'{title}.mp3'))
             await ctx.message.remove_reaction(LOADING_EMOJI, member=ctx.guild.me)
             await ctx.message.add_reaction("✅")
@@ -77,12 +78,12 @@ async def ytmp3(ctx: Context, *, search_query):
             await ctx.message.reply("An error occurred, please give me file permissions or try this command in a different channel.")
             await ctx.message.remove_reaction(LOADING_EMOJI, member=ctx.guild.me)
             await ctx.message.add_reaction("❌")
-    
-    
+
     # Deletes the File from the Bot's Directory
     await asyncio.sleep(10)
     fp.close()
     os.remove(f'{title}{ctx.author.id}q.mp3')
+
 
 def setup(bot: Bot):
     bot.add_command(ytmp3)

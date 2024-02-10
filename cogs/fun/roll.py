@@ -16,8 +16,8 @@ async def roll(ctx: Context, input: str = "1d20"):
 
     input: list = input.split("d")
 
-    if len(input) == 2:
-        if input[1] == "":
+    if len(input) is 2:
+        if input[1] is "":
             await ctx.send("You have to specify how many sides the dice has.", delete_after=10)
             await mymsg.delete()
             return

@@ -27,10 +27,12 @@ class ColorPicker(commands.Cog):
                         ),
                         url=f"https://www.colorhexa.com/{msg.content[1::]}"
                     )
-                    em.set_image(url=f"https://www.colorhexa.com/{msg.content[1::]}.png")
+                    em.set_image(
+                        url=f"https://www.colorhexa.com/{msg.content[1::]}.png")
                     await msg.reply(embed=em)
                 except Exception as e:
                     pass
+
 
 def setup(bot: Bot):
     bot.add_cog(ColorPicker(bot))

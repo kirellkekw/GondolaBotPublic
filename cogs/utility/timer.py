@@ -1,17 +1,15 @@
+import asyncio
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
 from engine.bot import bot
-import asyncio
-
-
 
 
 def parse_time(text: str):
 
     try:
         time = int(text[:-1])
-    except Exception as e:
-        return ("Please enter a valid digit for time")
+    except Exception:
+        return "Please enter a valid digit for time"
 
     if text.endswith("s"):
         time = int(time)
@@ -22,13 +20,13 @@ def parse_time(text: str):
         time = text[:-1]
         time = int(time) * 3600
     else:
-        return ("Please enter a valid time, like 1s, 1m or 1h")
+        return "Please enter a valid time, like 1s, 1m or 1h"
 
     if time <= 0:
-        return ("Time cannot be negative or zero")
+        return "Time cannot be negative or zero"
 
-    elif time > 36000:
-        return ("Time cannot be more than 10 hours")
+    if time > 36000:
+        return "Time cannot be more than 10 hours"
 
     return time
 
@@ -47,14 +45,13 @@ async def timer(ctx: Context, time: str, *, reason: str = None):
 
     await ctx.send(f"{ctx.author.mention}, your timer has been set for {time} seconds. Reason: {reason}")
 
-    if type(time) == int:
+    if isinstance(time, int):
         await asyncio.sleep(time)
     else:
         await ctx.send(f"An unknown error occured. Please contact <@{bot.owner_id}> for this issue.")
         return
 
     await ctx.send(f"{ctx.author.mention}, your timer has ended. Reason: {reason}")
-
 
 
 def setup(bot: Bot):

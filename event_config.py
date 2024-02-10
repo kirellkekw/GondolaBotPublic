@@ -13,10 +13,10 @@ MSG_REPLY_TRIGGERS = {
     "pika": "https://tenor.com/view/pikachu-shocked-face-stunned-pokemon-shocked-not-shocked-omg-gif-24112152",
     "hello there": "https://tenor.com/view/hello-there-general-kenobi-star-wars-grevious-gif-17774326",
     "jerry": "https://tenor.com/view/tom-and-jerry-what-insomnia-no-sleep-gif-13337078",
+    "fair enough": "https://cdn.discordapp.com/attachments/1170481425716355075/1205818235539296256/hq720.jpg?ex=65d9c0be&is=65c74bbe&hm=7d54f1462bef575ec45a9e5778f3c14a01b4659c1c259dc6f9168d19400bdba3&",
 }
 
 # channels to send bootup messages to
 BOOTUP_CHANNELS = [
-    997309089115803770, # GondolaBot server uptime info channel
+    997309089115803770,  # GondolaBot server uptime info channel
 ]
-

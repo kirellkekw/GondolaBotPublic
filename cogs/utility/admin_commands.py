@@ -2,6 +2,7 @@ from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
 from engine.bot import bot
 
+
 class AdminCmds(commands.Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
@@ -36,6 +37,7 @@ class AdminCmds(commands.Cog):
             msg += f"{extension}\n"
 
         await ctx.send(msg+"```")
+
 
 def setup(bot: Bot):
     bot.add_cog(AdminCmds(bot))

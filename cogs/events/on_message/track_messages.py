@@ -2,9 +2,9 @@ from nextcord import Message, Embed
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
 
-track_message_count = True
-print_messages = False  # change value if you want messages to be tracked
-print_all_messages = False  # change value if you want to track only user messages
+TRACK_MESSAGE_COUNT = True
+PRINT_MESSAGES_TO_TERMINAL = False  # change value if you want messages to be tracked
+PRINT_BOT_MESSAGES = False  # change value if you want to track only user messages
 
 
 class TrackMessages(commands.Cog):
@@ -17,8 +17,8 @@ class TrackMessages(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, msg: Message):
 
-        if print_messages:
-            if print_all_messages:
+        if PRINT_MESSAGES_TO_TERMINAL:
+            if PRINT_BOT_MESSAGES:
                 print(
                     f"{msg.guild.name} /// {msg.channel.name} /// {msg.author} /// {msg.content}")
             else:
@@ -26,7 +26,7 @@ class TrackMessages(commands.Cog):
                     print(
                         f"{msg.guild.name} /// {msg.channel.name} /// {msg.author} /// {msg.content}")
 
-        if track_message_count:
+        if TRACK_MESSAGE_COUNT:
             if not msg.author.bot:
                 self.user_messages += 1
             self.all_messages += 1

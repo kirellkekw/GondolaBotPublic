@@ -1,0 +1,37 @@
+name: Push Docker Image to Server
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: penguin-devops
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: http://5.178.111.177:5000
+          username: ${{ secrets.PENGUIN_USER }}
+          password: ${{ secrets.PENGUIN_PASSWD }}
+
+      - name: Stop Current Container
+        run: docker stop GondolaBot
+
+      - name: Build and Push Image
+        if: always()
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: 5.178.111.177:5000/GondolaBotPublic:${{ github.sha }}
+
+      - name: Run Docker Image
+        if: always()
+        run: docker run --detach --name GondolaBot --env MAIN_TOKEN="${{ secrets.MAIN_TOKEN }}" 5.178.111.177:5000/GondolaBotPublic:${{ github.sha }}

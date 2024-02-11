@@ -21,7 +21,12 @@ jobs:
           password: ${{ secrets.PENGUIN_PASSWD }}
 
       - name: Stop Current Container
+        if: always()
         run: docker stop GondolaBot
+
+      - name: Remove Current Container
+        if: always()
+        run: docker rm GondolaBot
 
       - name: Build and Push Image
         if: always()

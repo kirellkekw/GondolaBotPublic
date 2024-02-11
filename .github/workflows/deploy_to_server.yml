@@ -30,8 +30,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: 5.178.111.177:5000/GondolaBotPublic:${{ github.sha }}
+          tags: 5.178.111.177:5000/gondolabot:${{ github.sha }}
 
       - name: Run Docker Image
         if: always()
-        run: docker run --detach --name GondolaBot --env MAIN_TOKEN="${{ secrets.MAIN_TOKEN }}" 5.178.111.177:5000/GondolaBotPublic:${{ github.sha }}
+        run: docker run --detach --name GondolaBot --env MAIN_TOKEN="${{ secrets.MAIN_TOKEN }}" 5.178.111.177:5000/gondolabot:${{ github.sha }}

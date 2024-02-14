@@ -39,4 +39,4 @@ jobs:
 
       - name: Run New Docker Image
         if: always()
-        run: docker run --detach --restart always --name gondolabot --publish 2002:2002 --volume /softdisk/beer/cdn_root:/downloads kirellkekw/gondolabot:${{ github.sha }}
+        run: docker run --detach --restart always --name gondolabot --env MAIN_TOKEN=${{ secrets.MAIN_TOKEN }} kirellkekw/gondolabot:${{ github.sha }}

@@ -33,7 +33,7 @@ async def avatar(ctx: Context, *, avamember: Member | User = None):
         text=f"Requested by {ctx.author.display_name}", icon_url=ctx.author.display_avatar.url)
 
     em2 = Embed(
-        title=f"Global avatar of {avamember.display_name} :\n [Link]({avamember.avatar.url})",
+        title=f"Global avatar of {avamember.display_name} :)",
         color=avamember.color)
 
     em2.set_image(avamember.avatar.url)

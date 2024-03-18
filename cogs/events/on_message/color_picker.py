@@ -14,8 +14,7 @@ class ColorPicker(commands.Cog):
             return
 
         if msg.content.startswith("#") and len(msg.content) == 7:
-            res = requests.get(
-                f"https://www.colorhexa.com/{msg.content[1::]}.png")
+            res = requests.get(f"https://www.colorhexa.com/{msg.content[1::]}.png")
             if res.status_code == 200:
                 try:
                     em = Embed(
@@ -23,12 +22,13 @@ class ColorPicker(commands.Cog):
                         color=Color.from_rgb(
                             int(msg.content[1:3], 16),
                             int(msg.content[3:5], 16),
-                            int(msg.content[5:7], 16)
+                            int(msg.content[5:7], 16),
                         ),
-                        url=f"https://www.colorhexa.com/{msg.content[1::]}"
+                        url=f"https://www.colorhexa.com/{msg.content[1::]}",
                     )
                     em.set_image(
-                        url=f"https://www.colorhexa.com/{msg.content[1::]}.png")
+                        url=f"https://www.colorhexa.com/{msg.content[1::]}.png"
+                    )
                     await msg.reply(embed=em)
                 except Exception as e:
                     pass

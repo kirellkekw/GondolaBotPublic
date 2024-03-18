@@ -11,7 +11,9 @@ class SendBootupMessage(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
 
-        bootuptext = f"{NAME} v{VERSION} is online. Active server count: {len(self.bot.guilds)}"
+        bootuptext = (
+            f"{NAME} v{VERSION} is online. Active server count: {len(self.bot.guilds)}"
+        )
 
         print(bootuptext)
 

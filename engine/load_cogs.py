@@ -6,7 +6,7 @@ from config import VERSION, NAME, COGS_TO_LOAD
 def load_cogs(bot: Bot):
 
     print(f"Loading {NAME} v{VERSION}...\n")
-    print(F"{NAME} v{VERSION}")
+    print(f"{NAME} v{VERSION}")
 
     for cog in COGS_TO_LOAD:
         try:

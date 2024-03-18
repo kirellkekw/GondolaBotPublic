@@ -43,12 +43,16 @@ async def timer(ctx: Context, time: str, *, reason: str = None):
     if reason is None and time is not None:
         reason = "No reason given."
 
-    await ctx.send(f"{ctx.author.mention}, your timer has been set for {time} seconds. Reason: {reason}")
+    await ctx.send(
+        f"{ctx.author.mention}, your timer has been set for {time} seconds. Reason: {reason}"
+    )
 
     if isinstance(time, int):
         await asyncio.sleep(time)
     else:
-        await ctx.send(f"An unknown error occured. Please contact <@{bot.owner_id}> for this issue.")
+        await ctx.send(
+            f"An unknown error occured. Please contact <@{bot.owner_id}> for this issue."
+        )
         return
 
     await ctx.send(f"{ctx.author.mention}, your timer has ended. Reason: {reason}")

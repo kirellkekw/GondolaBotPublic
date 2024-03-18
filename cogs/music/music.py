@@ -26,6 +26,7 @@ async def addCheck(ctx: Context):
     except:
         pass
 
+
 # tries to add a cross reaction
 
 
@@ -35,6 +36,7 @@ async def addCross(ctx: Context):
     except:
         pass
 
+
 # tries to add a loading reaction
 
 
@@ -43,6 +45,7 @@ async def addLoading(ctx: Context):
         await ctx.message.add_reaction(loading_emoji)
     except:
         pass
+
 
 # tries to remove the loading reaction
 
@@ -128,23 +131,29 @@ class Music(commands.Cog):
         if searchword[0:4] != "http" and searchword[0:3] != "www":
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(f"ytsearch:{searchword}", download=False)[
-                    "entries"][0]
+                    "entries"
+                ][0]
                 title = info["title"]
                 url = info["webpage_url"]
 
         # remove characters that are not allowed in filenames
-        title = title.strip("\\:<>?/*\"|")
+        title = title.strip('\\:<>?/*"|')
         ydl_opts = {
-            'format': 'bestaudio/best',
+            "format": "bestaudio/best",
             "outtmpl": f"{title}",
-            "postprocessors":
-            [{"key": "FFmpegExtractAudio", "preferredcodec": "mp3",
-                "preferredquality": "128"}],
+            "postprocessors": [
+                {
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "mp3",
+                    "preferredquality": "128",
+                }
+            ],
         }
 
         def download(url):
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
+
         loop = asyncio.get_event_loop()
         # download the music in the background
         await loop.run_in_executor(None, download, url)
@@ -153,8 +162,10 @@ class Music(commands.Cog):
 
             if onLoop[guildId] is True:  # if looping is enabled
                 # play the current music again
-                voice.play(nextcord.FFmpegPCMAudio(
-                    f"{currentmusic[guildId]}.mp3"), after=lambda e: check_queue())
+                voice.play(
+                    nextcord.FFmpegPCMAudio(f"{currentmusic[guildId]}.mp3"),
+                    after=lambda e: check_queue(),
+                )
                 # send a message that the music is playing
                 await ctx.send(f"Playing **{currentmusic[guildId]}** :musical_note:")
                 # set the current music to the first music in queue
@@ -163,14 +174,20 @@ class Music(commands.Cog):
             else:  # if looping is disabled
 
                 try:  # try to play the next music in queue
-                    voice.play(nextcord.FFmpegPCMAudio(
-                        f"{queuelist[guildId][0]}.mp3"), after=lambda e: check_queue())
-                    await ctx.send(f"Playing **{queuelist[guildId][0]}** :musical_note:")
+                    voice.play(
+                        nextcord.FFmpegPCMAudio(f"{queuelist[guildId][0]}.mp3"),
+                        after=lambda e: check_queue(),
+                    )
+                    await ctx.send(
+                        f"Playing **{queuelist[guildId][0]}** :musical_note:"
+                    )
                     filestodelete.append(queuelist[guildId][0])
                     currentmusic[guildId] = queuelist[guildId][0]
                     queuelist[guildId].pop(0)
 
-                except IndexError:  # if there is no music in queue, remove musics from OS
+                except (
+                    IndexError
+                ):  # if there is no music in queue, remove musics from OS
                     for file in filestodelete:
                         os.remove(f"{file}.mp3")
                     filestodelete.clear()
@@ -183,12 +200,16 @@ class Music(commands.Cog):
             await addCheck(ctx)
         else:
             if onLoop[guildId] is True:
-                voice.play(nextcord.FFmpegPCMAudio(
-                    f"{currentmusic[guildId]}.mp3"), after=lambda e: check_queue())
+                voice.play(
+                    nextcord.FFmpegPCMAudio(f"{currentmusic[guildId]}.mp3"),
+                    after=lambda e: check_queue(),
+                )
                 await ctx.send(f"Playing **{currentmusic[guildId]}** :musical_note:")
             else:
-                voice.play(nextcord.FFmpegPCMAudio(
-                    f"{title}.mp3"), after=lambda e: check_queue())
+                voice.play(
+                    nextcord.FFmpegPCMAudio(f"{title}.mp3"),
+                    after=lambda e: check_queue(),
+                )
                 currentmusic[guildId] = title
 
             await removeLoading(ctx)
@@ -224,8 +245,10 @@ class Music(commands.Cog):
 
             if onLoop[guildId] is True:  # if looping is enabled
                 # play the current music again
-                voice.play(nextcord.FFmpegPCMAudio(
-                    f"{currentmusic[guildId]}.mp3"), after=lambda e: check_queue())
+                voice.play(
+                    nextcord.FFmpegPCMAudio(f"{currentmusic[guildId]}.mp3"),
+                    after=lambda e: check_queue(),
+                )
                 # send a message that the music is playing
                 await ctx.send(f"Playing **{currentmusic[guildId]}** :musical_note:")
                 # set the current music to the first music in queue
@@ -234,14 +257,20 @@ class Music(commands.Cog):
             else:  # if looping is disabled
 
                 try:  # try to play the next music in queue
-                    voice.play(nextcord.FFmpegPCMAudio(
-                        f"{queuelist[guildId][0]}.mp3"), after=lambda e: check_queue())
-                    await ctx.send(f"Playing **{queuelist[guildId][0]}** :musical_note:")
+                    voice.play(
+                        nextcord.FFmpegPCMAudio(f"{queuelist[guildId][0]}.mp3"),
+                        after=lambda e: check_queue(),
+                    )
+                    await ctx.send(
+                        f"Playing **{queuelist[guildId][0]}** :musical_note:"
+                    )
                     filestodelete.append(queuelist[guildId][0])
                     currentmusic[guildId] = queuelist[guildId][0]
                     queuelist[guildId].pop(0)
 
-                except IndexError:  # if there is no music in queue, remove musics from OS
+                except (
+                    IndexError
+                ):  # if there is no music in queue, remove musics from OS
                     for file in filestodelete:
                         os.remove(f"{file}.mp3")
                     filestodelete.clear()
@@ -252,8 +281,10 @@ class Music(commands.Cog):
                 await addCross(ctx)
                 return
             voice.stop()
-            voice.play(nextcord.FFmpegPCMAudio(
-                f"{queue[0]}.mp3"), after=lambda e: check_queue())
+            voice.play(
+                nextcord.FFmpegPCMAudio(f"{queue[0]}.mp3"),
+                after=lambda e: check_queue(),
+            )
             filestodelete.append(queue[0])
             await ctx.send(f"✅ Skipped\nPlaying ** {queue[0]} ** :musical_note:")
             currentmusic[guildId] = queue[0]
@@ -287,7 +318,9 @@ class Music(commands.Cog):
         try:
             onLoop[guildId] = not onLoop[guildId]
             await addCheck(ctx)
-            await ctx.send(f"Loop mode {'disabled' if onLoop[guildId] is False else 'enabled'}.")
+            await ctx.send(
+                f"Loop mode {'disabled' if onLoop[guildId] is False else 'enabled'}."
+            )
         except KeyError:
             await ctx.send("Bot is not playing music!")
             await addCross(ctx)
@@ -318,7 +351,7 @@ class Music(commands.Cog):
                 msg += f"\nLooping is enabled for *{currentmusic[guildId]}*"
             for i in enumerate(queue):
                 msg += f"\n{i[0]+1}- {i[1]}"
-            await ctx.send(f'{msg}```')
+            await ctx.send(f"{msg}```")
         except KeyError:
             await ctx.send("There is no music in queue!")
             await addCross(ctx)
@@ -340,7 +373,7 @@ class Music(commands.Cog):
         guildId = ctx.guild.id
         queue = queuelist[guildId]
         try:
-            queue.pop(index-1)
+            queue.pop(index - 1)
             await ctx.send(f"Removed music at index {index}!")
             await addCheck(ctx)
         except IndexError:
@@ -366,7 +399,8 @@ class Music(commands.Cog):
     clearqueue: Clears the current queue.
     remove <index>: Removes the music at the specified index from the queue.
     music: Displays this message.```
-    """)
+    """
+        )
 
     @tasks.loop(minutes=1)
     async def leave_if_idle(self):

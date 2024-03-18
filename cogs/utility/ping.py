@@ -12,7 +12,9 @@ async def ping(ctx: Context):
 
     delta = bot_time - msg_time
 
-    await ctx.send(f"Pong! Delay: ~{delta.microseconds}ms\n Discord API delay: ~{round(bot.latency * 1000)}ms")
+    await ctx.send(
+        f"Pong! Delay: ~{delta.microseconds}ms\n Discord API delay: ~{round(bot.latency * 1000)}ms"
+    )
 
 
 def setup(bot: Bot):

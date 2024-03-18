@@ -1,6 +1,7 @@
 from nextcord import Embed
 from nextcord.ext import commands
 from nextcord.ext.commands import Bot, Context
+
 # from config import prefix
 
 import requests as r
@@ -27,12 +28,15 @@ async def xkcd(ctx: Context, *, num: int = None):
     )
     em.set_image(url=res.json()["img"])
     em.set_footer(
-        text=f"Published on {res.json()['month']}/{res.json()['day']}/{res.json()['year']}, comic number {res.json()['num']}")
+        text=f"Published on {res.json()['month']}/{res.json()['day']}/{res.json()['year']}, comic number {res.json()['num']}"
+    )
 
     try:
         await ctx.send(embed=em)
     except Exception:
-        await ctx.send("I can't send embeds here. Give me permissions to send embeds or try again in a different channel.")
+        await ctx.send(
+            "I can't send embeds here. Give me permissions to send embeds or try again in a different channel."
+        )
 
 
 def setup(bot: Bot):

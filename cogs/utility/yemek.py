@@ -10,47 +10,50 @@ import jsonpickle
 @commands.command(hidden=True)
 async def yemek(ctx: Context):
 
-    r = requests.get(
-        url="https://yemekhane.cu.edu.tr/yemeklistejson.asp", timeout=10)
+    r = requests.get(url="https://yemekhane.cu.edu.tr/yemeklistejson.asp", timeout=10)
     r.encoding = "ISO-8859-9"
-    r = re.sub(r'<meta .*>', '', r.text)
+    r = re.sub(r"<meta .*>", "", r.text)
     parsed_data = jsonpickle.decode(r)
 
     today = datetime.date.today().strftime("%d.%m.%Y")
-    tomorrow = (datetime.date.today() +
-                datetime.timedelta(days=1)).strftime("%d.%m.%Y")
+    tomorrow = (datetime.date.today() + datetime.timedelta(days=1)).strftime("%d.%m.%Y")
 
     todayname = datetime.date.today().strftime("%A")
-    tomorrowname = (datetime.date.today() +
-                    datetime.timedelta(days=1)).strftime("%A")
+    tomorrowname = (datetime.date.today() + datetime.timedelta(days=1)).strftime("%A")
 
     if todayname == "Saturday":  # cumartesi günü
-        today = (datetime.date.today() + datetime.timedelta(days=2)
-                 ).strftime("%d.%m.%Y")  # pazartesi
-        todayname = (datetime.date.today() +
-                     datetime.timedelta(days=2)).strftime("%A")
+        today = (datetime.date.today() + datetime.timedelta(days=2)).strftime(
+            "%d.%m.%Y"
+        )  # pazartesi
+        todayname = (datetime.date.today() + datetime.timedelta(days=2)).strftime("%A")
 
-        tomorrow = (datetime.date.today() +
-                    datetime.timedelta(days=3)).strftime("%d.%m.%Y")  # salı
-        tomorrowname = (datetime.date.today() +
-                        datetime.timedelta(days=3)).strftime("%A")
+        tomorrow = (datetime.date.today() + datetime.timedelta(days=3)).strftime(
+            "%d.%m.%Y"
+        )  # salı
+        tomorrowname = (datetime.date.today() + datetime.timedelta(days=3)).strftime(
+            "%A"
+        )
 
     elif todayname == "Sunday":  # pazar günü
-        today = (datetime.date.today() + datetime.timedelta(days=1)
-                 ).strftime("%d.%m.%Y")  # pazartesi
-        todayname = (datetime.date.today() +
-                     datetime.timedelta(days=1)).strftime("%A")
+        today = (datetime.date.today() + datetime.timedelta(days=1)).strftime(
+            "%d.%m.%Y"
+        )  # pazartesi
+        todayname = (datetime.date.today() + datetime.timedelta(days=1)).strftime("%A")
 
-        tomorrow = (datetime.date.today() +
-                    datetime.timedelta(days=2)).strftime("%d.%m.%Y")  # salı
-        tomorrowname = (datetime.date.today() +
-                        datetime.timedelta(days=2)).strftime("%A")
+        tomorrow = (datetime.date.today() + datetime.timedelta(days=2)).strftime(
+            "%d.%m.%Y"
+        )  # salı
+        tomorrowname = (datetime.date.today() + datetime.timedelta(days=2)).strftime(
+            "%A"
+        )
 
     elif todayname == "Friday":
-        tomorrow = (datetime.date.today() + datetime.timedelta(days=3)
-                    ).strftime("%d.%m.%Y")  # pazartesi
-        tomorrowname = (datetime.date.today() +
-                        datetime.timedelta(days=3)).strftime("%A")
+        tomorrow = (datetime.date.today() + datetime.timedelta(days=3)).strftime(
+            "%d.%m.%Y"
+        )  # pazartesi
+        tomorrowname = (datetime.date.today() + datetime.timedelta(days=3)).strftime(
+            "%A"
+        )
 
     day1 = parsed_data[today]
     day2 = parsed_data[tomorrow]

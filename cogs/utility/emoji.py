@@ -13,7 +13,9 @@ async def emoji(ctx: Context, emoji_to_check: str):
     if emoji_to_check.startswith("<a:"):
         emoji_link = f"https://cdn.discordapp.com/emojis/{emoji_id}.gif?size=240&quality=lossless"
     else:
-        emoji_link = f"https://cdn.discordapp.com/emojis/{emoji_id}.png?size=240quality=lossless"
+        emoji_link = (
+            f"https://cdn.discordapp.com/emojis/{emoji_id}.png?size=240quality=lossless"
+        )
 
     em = Embed(title=f"Emoji: {emoji_name}", color=ctx.author.color)
     em.set_image(emoji_link)
@@ -44,14 +46,18 @@ async def addemoji(ctx: Context, emoji_to_add: str, name: str):
     if is_animated:
         emoji_link = f"https://cdn.discordapp.com/emojis/{emoji_id}.gif?size=240&quality=lossless"
     else:
-        emoji_link = f"https://cdn.discordapp.com/emojis/{emoji_id}.png?size=240quality=lossless"
+        emoji_link = (
+            f"https://cdn.discordapp.com/emojis/{emoji_id}.png?size=240quality=lossless"
+        )
 
     res = r.get(emoji_link, timeout=10)
     if res.status_code != 200:
         await ctx.send("Invalid emoji.")
         return
 
-    emoji_to_add = await ctx.guild.create_custom_emoji(name=name, image=bytes(res.content))
+    emoji_to_add = await ctx.guild.create_custom_emoji(
+        name=name, image=bytes(res.content)
+    )
 
     await ctx.send(f"Emoji {emoji_to_add} added as {name}.")
     return

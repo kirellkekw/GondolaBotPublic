@@ -11,14 +11,18 @@ async def roll(ctx: Context, input: str = "1d20"):
     mymsg = await ctx.send(f"Rolling {input}...")
 
     async def wrong_format_error():
-        await ctx.send(f"Wrong format. Usage: {PREFIX}roll (amount)d(sides)", delete_after=10)
+        await ctx.send(
+            f"Wrong format. Usage: {PREFIX}roll (amount)d(sides)", delete_after=10
+        )
         await mymsg.delete()
 
     input: list = input.split("d")
 
     if len(input) == 2:
         if input[1] == "":
-            await ctx.send("You have to specify how many sides the dice has.", delete_after=10)
+            await ctx.send(
+                "You have to specify how many sides the dice has.", delete_after=10
+            )
             await mymsg.delete()
             return
         amount = input[0]
@@ -45,7 +49,9 @@ async def roll(ctx: Context, input: str = "1d20"):
         elif amount < 1:
             amount = 1
         if sides > 100:
-            await ctx.send("You can't roll a dice with more than 100 sides.", delete_after=10)
+            await ctx.send(
+                "You can't roll a dice with more than 100 sides.", delete_after=10
+            )
             await mymsg.delete()
             return
         elif sides < 2:

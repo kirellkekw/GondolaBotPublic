@@ -3,7 +3,7 @@ from nextcord.ext.commands import Context, Bot
 import random
 
 
-@commands.command(aliases=['cf', 'coin', 'flip'])
+@commands.command(aliases=["cf", "coin", "flip"])
 async def coinflip(ctx: Context):
     choice = ["Heads", "Tails"]
     side = random.randint(1, 6000)

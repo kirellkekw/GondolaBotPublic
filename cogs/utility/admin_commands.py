@@ -36,7 +36,7 @@ class AdminCmds(commands.Cog):
         for extension in self.bot.extensions:
             msg += f"{extension}\n"
 
-        await ctx.send(msg+"```")
+        await ctx.send(msg + "```")
 
 
 def setup(bot: Bot):

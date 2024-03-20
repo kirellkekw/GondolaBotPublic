@@ -49,4 +49,5 @@ COGS_TO_LOAD = {
     ("utility.timer", None),
     ("utility.usercount", None),
     ("utility.yemek", None),
+    ("special.1218554144751616030.slap", None),
 }

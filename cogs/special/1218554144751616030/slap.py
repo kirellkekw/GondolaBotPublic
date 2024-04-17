@@ -17,9 +17,7 @@ async def on_message(msg: Message):
     if msg.guild.id != server_id:
         return
 
-    if msg.content.lower().startswith("tokat") or msg.content.lower().startswith(
-        "slap"
-    ):
+    if msg.content.lower().startswith("tokat") | msg.content.lower().startswith("slap"):
         slapped_user = msg.mentions[0]
         if slapped_user.voice is None:
             await msg.channel.send(

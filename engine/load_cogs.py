@@ -10,7 +10,7 @@ def load_cogs(bot: Bot):
 
     for cog in COGS_TO_LOAD:
         try:
-            bot.load_extension(f"cogs.{cog[0]}")
+            bot.load_extension(f"cogs.{cog[0]}", extras=cog[1])
             print(f"Loaded {cog}")
         except Exception as e:
             print(f"Error loading {cog}:\n{e}\n")

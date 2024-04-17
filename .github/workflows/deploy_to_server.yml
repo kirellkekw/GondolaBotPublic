@@ -27,16 +27,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Stop Old Container
-        run: docker stop gondolabot
+        run: docker stop gondolabot || true
 
       - name: Remove Old Container
-        if: always()
-        run: docker rm gondolabot
+        run: docker rm gondolabot || true
 
       - name: Pull New Docker Image
-        if: always()
         run: docker pull kirellkekw/gondolabot:${{ github.sha }}
 
       - name: Run New Docker Image
-        if: always()
         run: docker run --detach --restart always --name gondolabot --env MAIN_TOKEN=${{ secrets.MAIN_TOKEN }} kirellkekw/gondolabot:${{ github.sha }}
